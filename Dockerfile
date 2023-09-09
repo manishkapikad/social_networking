@@ -1,10 +1,13 @@
-FROM python:3.7
-WORKDIR /social_networking
-COPY . /social_networking/
+FROM python:3.10
 
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+ENV PYTHONUNBUFFERED 1
 
-EXPOSE 8000
+COPY . /socialnetwork
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Set up the Django settings to use MariaDB
+WORKDIR /socialnetwork
+
+# Install Django and other Python dependencies
+RUN pip3 install -r requirements.txt
+
+WORKDIR /socialnetwork

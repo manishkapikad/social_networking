@@ -32,11 +32,11 @@ urlpatterns = [
     path("login/", LoginView.as_view(), name="login"),
     path("signup/", SignupView.as_view(), name="signup"),
     path("search/", UserSearch.as_view(), name="user-search"),
-    path("send-friend-request/", SendFriendRequest.as_view(), name="send_friend_request"),
+    path("send-friend-request/", SendFriendRequest.as_view(), name="send-friend-request"),
     path(
         "handle-friend-request/<int:request_id>/",
         AcceptRejectFriendRequest.as_view(),
-        name="handle_friend_request",
+        name="handle-friend-request",
     ),
     path(
         "pending-friends-list/",

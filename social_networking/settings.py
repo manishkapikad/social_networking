@@ -80,9 +80,9 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "socialnetworking",
-        "USER": "dbadmin",
-        "PASSWORD": "zx12#$zxcv",
-        "HOST": "192.168.1.8",
+        "USER": "mariadb",
+        "PASSWORD": "mariadb",
+        "HOST": "db",
         "PORT": "3306",
         "connection_timeout ": "10",
         "TEST": {
@@ -151,7 +151,6 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.AllowAny",
     ),
     "DEFAULT_FILTER_BACKENDS": (
-        # "django_filters.rest_framework.DjangoFilterBackend",
         "rest_framework.filters.OrderingFilter",
     ),
 }

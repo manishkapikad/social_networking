@@ -1,8 +1,29 @@
 version: '3'
+
 services:
+  db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=mariadb
+      - MYSQL_DATABASE=socialnetworking
+      - MYSQL_USER=mariadb
+      - MYSQL_PASSWORD=mariadb
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Add an init SQL script
+    ports:
+      - "3307:3306"
+    
+    
   web:
     build: .
-    ports:
-      - "8000:8000"
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/social_networking
+      - .:/socialnetwork
+    ports:
+      - "8001:8000"
+    depends_on:
+      - db
+
+volumes:
+  mariadb_data:
