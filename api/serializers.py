@@ -20,7 +20,7 @@ class LoginSerializer(serializers.Serializer):
         password = data.get("password")
         if email and password:
             try:
-                user = User.objects.get(email=email)
+                user = User.objects.get(email=email.lower())
             except User.DoesNotExist:
                 user = None
                 raise serializers.ValidationError("unable to log in with the provided credentials.")
@@ -43,14 +43,14 @@ class SignupSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True)
 
     def validate_email(self, value):
-        if User.objects.filter(email=value).exists():
+        if User.objects.filter(email=value.lower()).exists():
             raise serializers.ValidationError("email address already in use")
         return value
 
     def create(self, validated_data):
         user = User.objects.create_user(
-            username=validated_data["email"],
-            email=validated_data["email"],
+            username=validated_data["email"].lower(),
+            email=validated_data["email"].lower(),
             password=validated_data["password"],
         )
         return user

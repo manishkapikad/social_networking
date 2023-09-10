@@ -1,4 +1,4 @@
-version: '3'
+version: "3.4"
 
 services:
   db:
@@ -13,8 +13,12 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Add an init SQL script
     ports:
       - "3307:3306"
-    
-    
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--su=mysql", "--connect", "--innodb_initialized"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -22,8 +26,10 @@ services:
       - .:/socialnetwork
     ports:
       - "8001:8000"
+    restart: on-failure
     depends_on:
-      - db
+      db : 
+        condition: service_healthy
 
 volumes:
   mariadb_data:
