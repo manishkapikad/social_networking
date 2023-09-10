@@ -7,7 +7,7 @@ Requirements:
 ## Installation
 <pre>
 $ git clone https://github.com/manishkapikad/social_networking.git
-$ cd cd social_networking/
+$ cd social_networking/
 </pre>
 
 Run : 
